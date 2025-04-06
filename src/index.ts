@@ -1,11 +1,11 @@
 export default {
-	async fetch(request: Request): Promise<Response> {
-	  if (request.method === "POST") {
-		const body = await request.text();
-		console.log("Webhook received body:", body); // ← このログが出ます
-		return new Response("Webhook received");
-	  }
+	async fetch(): Promise<Response> {
+		const now = new Date().toISOString();
 
-	  return new Response("Send a POST request", { status: 405 });
+		// ログに出す（tail で見える）
+		console.log("Current time:", now);
+
+		// クライアントには JSON を返す
+		return Response.json({ now });
 	}
-  }
+}
